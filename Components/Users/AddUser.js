@@ -22,7 +22,18 @@ function AddUser(props) {
 
   const addUserHandler = (event) => {
     event.preventDefault();
-    console.log(enteredUserName,enteredAge,enteredEmail);
+    if (
+      enteredUserName.trim().length === 0 ||
+      enteredEmail.trim().length === 0 ||
+      enteredAge.trim().length === 0 ||
+      +enteredAge < 1
+    ) {
+      return;
+    }
+    setEnteredUserName("");
+    setEnteredAge("");
+    setEnteredEmail("");
+    console.log(enteredUserName, enteredAge, enteredEmail);
   };
   return (
     <Card className={classes.input}>
@@ -31,12 +42,23 @@ function AddUser(props) {
         <input
           id="username"
           type="text"
+          value={enteredUserName}
           onChange={userNameChangeHandler}
         ></input>
         <label htmlFor="age">Age (Years)</label>
-        <input id="age" type="number" onChange={ageChangeHandler}></input>
+        <input
+          id="age"
+          type="number"
+          value={enteredAge}
+          onChange={ageChangeHandler}
+        ></input>
         <label htmlFor="email">E-Mail ID</label>
-        <input id="email" type="email" onChange={emailChangeHandler}></input>
+        <input
+          id="email"
+          type="email"
+          value={enteredEmail}
+          onChange={emailChangeHandler}
+        ></input>
         <Button type="submit">Add User</Button>
       </form>
     </Card>
