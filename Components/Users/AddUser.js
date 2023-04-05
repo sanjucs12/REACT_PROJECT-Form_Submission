@@ -30,10 +30,12 @@ function AddUser(props) {
     ) {
       return;
     }
+
+    props.onAddUser(enteredUserName, enteredAge, enteredEmail);
+    //console.log(enteredUserName, enteredAge, enteredEmail);
     setEnteredUserName("");
     setEnteredAge("");
     setEnteredEmail("");
-    console.log(enteredUserName, enteredAge, enteredEmail);
   };
   return (
     <Card className={classes.input}>
