@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import Card from "../UI/Card";
 import classes from "./AddUser.module.css";
@@ -8,29 +8,36 @@ import ErrorModel from "../UI/ErrorModel";
 import Wrapper from "../Helpers/Wrapper";
 
 function AddUser(props) {
-  const [enteredUserName, setEnteredUserName] = useState("");
-  const [enteredAge, setEnteredAge] = useState("");
-  const [enteredEmail, setEnteredEmail] = useState("");
+  const nameInputRef = useRef();
+  const ageInputRef = useRef();
+  const mailInputRef = useRef();
+
+  // const [enteredUserName, setEnteredUserName] = useState("");
+  // const [enteredAge, setEnteredAge] = useState("");
+  // const [enteredEmail, setEnteredEmail] = useState("");
   const [error, setError] = useState();
 
-  const userNameChangeHandler = (event) => {
-    setEnteredUserName(event.target.value);
-  };
+  // const userNameChangeHandler = (event) => {
+  //   setEnteredUserName(event.target.value);
+  // };
 
-  const ageChangeHandler = (event) => {
-    setEnteredAge(event.target.value);
-  };
-  const emailChangeHandler = (event) => {
-    setEnteredEmail(event.target.value);
-  };
+  // const ageChangeHandler = (event) => {
+  //   setEnteredAge(event.target.value);
+  // };
+  // const emailChangeHandler = (event) => {
+  //   setEnteredEmail(event.target.value);
+  // };
 
   const addUserHandler = (event) => {
     event.preventDefault();
+    const enteredNAme = nameInputRef.current.value;
+    const enteredUserAge = ageInputRef.current.value;
+    const enteredUserEmail = mailInputRef.current.value;
     if (
-      enteredUserName.trim().length === 0 ||
-      enteredEmail.trim().length === 0 ||
-      enteredAge.trim().length === 0 ||
-      +enteredAge < 1
+      enteredNAme.trim().length === 0 ||
+      enteredUserEmail.trim().length === 0 ||
+      enteredUserAge.trim().length === 0 ||
+      +enteredUserAge < 1
     ) {
       setError({
         title: "Invalid Input",
@@ -39,11 +46,14 @@ function AddUser(props) {
       return;
     }
 
-    props.onAddUser(enteredUserName, enteredAge, enteredEmail);
+    props.onAddUser(enteredNAme, enteredUserAge, enteredUserEmail);
     //console.log(enteredUserName, enteredAge, enteredEmail);
-    setEnteredUserName("");
-    setEnteredAge("");
-    setEnteredEmail("");
+    // setEnteredUserName("");
+    // setEnteredAge("");
+    // setEnteredEmail("");
+    nameInputRef.current.value='';
+    ageInputRef.current.value='';
+    mailInputRef.current.value='';
   };
 
   const errorHandler = () => {
@@ -64,22 +74,25 @@ function AddUser(props) {
           <input
             id="username"
             type="text"
-            value={enteredUserName}
-            onChange={userNameChangeHandler}
+            // value={enteredUserName}
+            // onChange={userNameChangeHandler}
+            ref={nameInputRef}
           ></input>
           <label htmlFor="age">Age (Years)</label>
           <input
             id="age"
             type="number"
-            value={enteredAge}
-            onChange={ageChangeHandler}
+            // value={enteredAge}
+            // onChange={ageChangeHandler}
+            ref={ageInputRef}
           ></input>
           <label htmlFor="email">E-Mail ID</label>
           <input
             id="email"
             type="email"
-            value={enteredEmail}
-            onChange={emailChangeHandler}
+            // value={enteredEmail}
+            // onChange={emailChangeHandler}
+            ref={mailInputRef}
           ></input>
           <Button type="submit">Add User</Button>
         </form>
